@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "second.h"
+#include "main.h"
 
 using namespace std;
 
