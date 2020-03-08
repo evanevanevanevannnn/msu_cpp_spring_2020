@@ -1,10 +1,12 @@
+CC = g++
+
 all: main
 
 main.o: main.cpp main.h
-	g++ -c main.cpp
+	$(CC) -c main.cpp
 
 main: main.o
-	g++ -o main main.o
+	$(CC) -o main main.o
 
 test: main
 	python3 checker.py
