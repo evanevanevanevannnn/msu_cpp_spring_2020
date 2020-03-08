@@ -11,5 +11,8 @@ main: main.o
 test: main
 	python3 checker.py
 
+run: main
+	./main
+
 clean:
 	rm -rf *.o main
