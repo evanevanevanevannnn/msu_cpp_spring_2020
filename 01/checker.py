@@ -7,7 +7,7 @@ def run(command, process_input):
         out = process.communicate(input=process_input, timeout=10)[0]
     except TimeoutExpired:
         process.kill()
-        return (1, "")
+        return (1, '')
 
     code = process.wait()
     return code, out
