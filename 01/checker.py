@@ -63,7 +63,7 @@ def test(command, process_input, expected_code):
         print('wrong_answer 6')
         return
 
-    print('passed all tests')
+    print('test passed')
 
 test('./main',  b'''MAKE_ALLOCATOR 20
                     ALLOCATE 10
