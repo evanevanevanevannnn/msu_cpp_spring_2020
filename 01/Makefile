@@ -1,18 +1,12 @@
 CC = g++
 
-all: main
+all: test
 
-main.o: main.cpp main.h
-	$(CC) -c main.cpp
+allocator.o: allocator.cpp allocator.h
+	$(CC) -c allocator.cpp
 
-main: main.o
-	$(CC) -o main main.o
-
-test: main
-	python3 checker.py
-
-run: main
-	./main
+test: test.cpp allocator.o
+	$(CC) -o test test.cpp allocator.o && ./test
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o test
