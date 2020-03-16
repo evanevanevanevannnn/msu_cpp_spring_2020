@@ -57,7 +57,5 @@ int main() {
 
 	test("this 123 is 45 fine"); //changing callback functions
 
-
-
 	return 0;
 }
