@@ -8,11 +8,11 @@ void registerStringCallback(tokenCallback callback) {
     callbackFunctions.stringCallback = callback;
 }
 
-void registerStartCallback(startStopCallback callback) {
+void registerStartCallback(parseCallback callback) {
     callbackFunctions.startCallback = callback;
 }
 
-void registerStopCallback(startStopCallback callback) {
+void registerStopCallback(parseCallback callback) {
     callbackFunctions.stopCallback = callback;
 }
 
@@ -20,29 +20,25 @@ bool isSpace(char c) {
     return (c == ' ' || c == '\t' || c == '\n');
 }
 
-void parse(char *text) {
+void parse(std::string text) {
     callbackFunctions.startCallback();
 
-    while (*text) {
+    for (int i = 0; i < text.size(); ++i) {
 
-        if (isSpace(*text)) {
-            text++;
+        if (isSpace(text[i]))
             continue;
-        }
-        
-        int i = 0;
-        for(; !isSpace(text[i]) && text[i]; ++i);
 
-        char prev = text[i];
+        int j = i;
+        while (j < text.size() && !isSpace(text[j]))
+            ++j;
 
-        text[i] = 0;
-        if (*text >= '0' && *text <= '9')
-            callbackFunctions.numberCallback(text);
+        std::string token = text.substr(i, j - i);
+        if (text[i] >= '0' && text[i] <= '9')
+            callbackFunctions.numberCallback(token);
         else
-            callbackFunctions.stringCallback(text);
-        text[i] = prev;
+            callbackFunctions.stringCallback(token);
 
-        text += i;
+        i = j;
     }
 
     callbackFunctions.stopCallback();

@@ -1,15 +1,13 @@
-#include <bits/stdc++.h>
+#include <string>
 
-using namespace std;
-
-using tokenCallback = void (*)(char *);
-using startStopCallback = void (*)();
+using tokenCallback = void (*)(std::string);
+using parseCallback = void (*)();
 
 struct CallbackFunctions {
     tokenCallback numberCallback,
                   stringCallback;
 
-    startStopCallback startCallback,
+    parseCallback startCallback,
                       stopCallback;
 };
 
@@ -19,10 +17,10 @@ void registerNumberCallback(tokenCallback callback);
 
 void registerStringCallback(tokenCallback callback);
 
-void registerStartCallback(startStopCallback callback);
+void registerStartCallback(parseCallback callback);
 
-void registerStopCallback(startStopCallback callback);
+void registerStopCallback(parseCallback callback);
 
 bool isSpace(char c);
 
-void parse(char *text);
+void parse(std::string text);
