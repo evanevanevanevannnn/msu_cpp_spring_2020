@@ -1,21 +1,23 @@
+#include <iostream>
 #include <string>
 
-using tokenCallback = void (*)(std::string);
+using StringCallback = void (*)(std::string);
+using NumberCallback = void (*)(int);
 using parseCallback = void (*)();
 
 struct CallbackFunctions {
-    tokenCallback numberCallback,
-                  stringCallback;
+    NumberCallback numberCallback;
+    StringCallback stringCallback;
 
     parseCallback startCallback,
                       stopCallback;
 };
 
-static CallbackFunctions callbackFunctions;
+extern CallbackFunctions callbackFunctions;
 
-void registerNumberCallback(tokenCallback callback);
+void registerNumberCallback(NumberCallback callback);
 
-void registerStringCallback(tokenCallback callback);
+void registerStringCallback(StringCallback callback);
 
 void registerStartCallback(parseCallback callback);
 
@@ -23,4 +25,8 @@ void registerStopCallback(parseCallback callback);
 
 bool isSpace(char c);
 
-void parse(std::string text);
+bool allRegistered();
+
+std::string whichRegistered();
+
+void parse(const std::string& text);
