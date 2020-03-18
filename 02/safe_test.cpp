@@ -2,8 +2,6 @@
 
 using namespace std;
 
-CallbackFunctions callbackFunctions;
-
 void parseStart() {
 	cout << "\tparsing started\n";
 }
@@ -20,11 +18,11 @@ void anotherNumberTokenHandler(int token) {
 	cout << "\tsame number token -> " << token << '\n';
 }
 
-void stringTokenHandler(string token) {
+void stringTokenHandler(const string& token) {
 	cout << "\tstring token -> " << token << '\n';
 }
 
-void anotherStringTokenHandler(string token) {
+void anotherStringTokenHandler(const string& token) {
 	cout << "\tsame string token -> " << token << '\n';
 }
 

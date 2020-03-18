@@ -1,5 +1,7 @@
 #include "parser.h"
 
+static CallbackFunctions callbackFunctions;
+
 void registerNumberCallback(NumberCallback callback) {
     callbackFunctions.numberCallback = callback;
 }
@@ -14,10 +16,6 @@ void registerStartCallback(parseCallback callback) {
 
 void registerStopCallback(parseCallback callback) {
     callbackFunctions.stopCallback = callback;
-}
-
-bool isSpace(char c) {
-    return (c == ' ' || c == '\t' || c == '\n');
 }
 
 bool allRegistered() {
@@ -60,11 +58,11 @@ void parse(const std::string& text) {
 
     for (int i = 0; i < text.size(); ++i) {
 
-        if (isSpace(text[i]))
+        if (std::isspace(text[i]))
             continue;
 
         int j = i;
-        while (j < text.size() && !isSpace(text[j]))
+        while (j < text.size() && !std::isspace(text[j]))
             ++j;
 
         std::string token = text.substr(i, j - i);
