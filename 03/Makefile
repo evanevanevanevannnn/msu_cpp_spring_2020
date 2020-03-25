@@ -8,3 +8,6 @@ test_compile: matrix.o test.cpp
 
 test: test_compile
 	./test
+
+clean:
+	rm -rf test *.o
