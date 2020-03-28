@@ -8,6 +8,7 @@ private:
 
 public:
 	Matrix(size_t Rows, size_t Cols);
+	~Matrix();
 
 	class Row {
 	private:
@@ -16,16 +17,17 @@ public:
 
 	public:
 		Row(size_t Size, int *Data);
-		int& operator[](const size_t& n);
+		int& operator[](size_t column);
 	};
 
-	int getRows();
-	int getColumns();
+	size_t getRows();
+	size_t getColumns();
 
-	void fill(const int& n);
+	void fill(int n);
+	int at(int row, int coolumn) const;
 
-	Row operator[](const size_t& n);
-	Matrix operator*=(const int& n);
-	bool operator==(Matrix n);
-	bool operator!=(Matrix n);
+	Row operator[](size_t row);
+	Matrix& operator*=(int n);
+	bool operator==(const Matrix& n);
+	bool operator!=(const Matrix& n);
 };

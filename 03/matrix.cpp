@@ -11,48 +11,56 @@ Matrix::Matrix(size_t Rows, size_t Cols):
 Matrix::Row::Row(size_t Size, int *Data):
 		size(Size), data(Data) {}
 
-int& Matrix::Row::operator[](const size_t& n) {
-	if (n >= size)
+int& Matrix::Row::operator[](size_t column) {
+	if (column >= size)
 		throw std::out_of_range("std::out_of_range");
 
-	return data[n];
+	return data[column];
 }
 
-int Matrix::getRows() {
+size_t Matrix::getRows() {
 	return rows;
 }
 
-int Matrix::getColumns() {
+size_t Matrix::getColumns() {
 	return cols;
 }
 
-void Matrix::fill(const int& n) {
-	for (int i = 0, size = rows * cols; i < size; ++i)
+void Matrix::fill(int n) {
+	for (size_t i = 0, size = rows * cols; i < size; ++i)
 		data[i] = n;
 }
 
-Matrix::Row Matrix::operator[](const size_t& n) {
-	if (n >= rows)
-		throw std::out_of_range("std::out_of_range");
-
-	return Matrix::Row(cols, data + n * cols);
+int Matrix::at(int row, int column) const {
+	return this->data[row * cols + column];
 }
 
-Matrix Matrix::operator*=(const int& n) {
-	for (int i = 0, size = rows * cols; i < size; ++i)
+Matrix::Row Matrix::operator[](size_t row) {
+	if (row >= rows)
+		throw std::out_of_range("std::out_of_range");
+
+	return Matrix::Row(cols, data + row * cols);
+}
+
+Matrix& Matrix::operator*=(int n) {
+	for (size_t i = 0, size = rows * cols; i < size; ++i)
 		data[i] *= n;
 
 	return *this;
 }
 
-bool Matrix::operator==(Matrix n) {
-	for (int i = 0; i < rows; ++i)
-		for (int j = 0; j < cols; ++j)
-			if (data[i * cols + j] != n[i][j])
+bool Matrix::operator==(const Matrix& n) {
+	for (size_t i = 0; i < rows; ++i)
+		for (size_t j = 0; j < cols; ++j)
+			if (data[i * cols + j] != n.at(i, j))
 				return false;
 	return true;
 }
 
-bool Matrix::operator!=(Matrix n) {
+bool Matrix::operator!=(const Matrix& n) {
 	return !(*this == n);
+}
+
+Matrix::~Matrix() {
+	free(data);
 }
