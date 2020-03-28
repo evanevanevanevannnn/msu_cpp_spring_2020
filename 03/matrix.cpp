@@ -31,7 +31,7 @@ void Matrix::fill(int n) {
 		data[i] = n;
 }
 
-int Matrix::at(int row, int column) const {
+int Matrix::at(size_t row, size_t column) const {
 	return this->data[row * cols + column];
 }
 
