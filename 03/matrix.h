@@ -24,7 +24,7 @@ public:
 	size_t getColumns();
 
 	void fill(int n);
-	int at(int row, int coolumn) const;
+	int at(int row, int column) const;
 
 	Row operator[](size_t row);
 	Matrix& operator*=(int n);
