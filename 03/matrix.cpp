@@ -18,11 +18,18 @@ int& Matrix::Row::operator[](size_t column) {
 	return data[column];
 }
 
-size_t Matrix::getRows() {
+const int& Matrix::Row::operator[](size_t column) const {
+	if (column >= size)
+		throw std::out_of_range("std::out_of_range");
+
+	return data[column];
+}
+
+size_t Matrix::getRows() const {
 	return rows;
 }
 
-size_t Matrix::getColumns() {
+size_t Matrix::getColumns() const {
 	return cols;
 }
 
@@ -31,11 +38,14 @@ void Matrix::fill(int n) {
 		data[i] = n;
 }
 
-int Matrix::at(size_t row, size_t column) const {
-	return this->data[row * cols + column];
+Matrix::Row Matrix::operator[](size_t row) {
+	if (row >= rows)
+		throw std::out_of_range("std::out_of_range");
+
+	return Matrix::Row(cols, data + row * cols);
 }
 
-Matrix::Row Matrix::operator[](size_t row) {
+const Matrix::Row Matrix::operator[](size_t row) const {
 	if (row >= rows)
 		throw std::out_of_range("std::out_of_range");
 
@@ -49,15 +59,15 @@ Matrix& Matrix::operator*=(int n) {
 	return *this;
 }
 
-bool Matrix::operator==(const Matrix& n) {
+bool Matrix::operator==(const Matrix& n) const {
 	for (size_t i = 0; i < rows; ++i)
 		for (size_t j = 0; j < cols; ++j)
-			if (data[i * cols + j] != n.at(i, j))
+			if (data[i * cols + j] != n[i][j])
 				return false;
 	return true;
 }
 
-bool Matrix::operator!=(const Matrix& n) {
+bool Matrix::operator!=(const Matrix& n) const {
 	return !(*this == n);
 }
 

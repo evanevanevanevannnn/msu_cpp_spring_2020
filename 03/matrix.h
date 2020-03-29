@@ -17,17 +17,20 @@ public:
 
 	public:
 		Row(size_t Size, int *Data);
+
 		int& operator[](size_t column);
+		const int& operator[](size_t column) const;
 	};
 
-	size_t getRows();
-	size_t getColumns();
+	size_t getRows() const;
+	size_t getColumns() const;
 
 	void fill(int n);
-	int at(size_t row, size_t column) const;
 
 	Row operator[](size_t row);
+	const Row operator[](size_t row) const;
+
 	Matrix& operator*=(int n);
-	bool operator==(const Matrix& n);
-	bool operator!=(const Matrix& n);
+	bool operator==(const Matrix& n) const;
+	bool operator!=(const Matrix& n) const;
 };
