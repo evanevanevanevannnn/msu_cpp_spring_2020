@@ -1,3 +1,10 @@
+#pragma once
+
+#include <string>
+#include <vector>
+#include <sstream>
+#include <utility>
+
 template <class T>
 static void process(int depth, std::vector <std::pair <int, std::string>>&args, T&& t) {
 	std::stringstream stream;
@@ -49,7 +56,11 @@ std::string format(const std::string& f, ArgvT&&... argv) {
 			std::string number = f.substr(i + 1, j - i - 1);
 			if (is_size_t(number))
 				args.push_back(std::make_pair(std::stoi(number), ""));
+
+			i = j;
 		}
+		else if (f[i] == '}')
+			throw std::runtime_error("invalid brackets use");
 	}
 
 	process(0, args, std::forward<ArgvT>(argv)...);
